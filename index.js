@@ -68,7 +68,7 @@ class VerificationTokenApi {
       const response = await axios.get(this.url + "orders", {
         params: {
           oauth_token: accessToken,
-          take : 2
+          take : 5
         }
       });
       
