@@ -108,11 +108,3 @@ app.get("/get-api-orders", async function (req, res) {
 app.listen(5000, () => {
   console.log(`server started on 5000`);
 });
-
-/**
- * Варианты
- *
- * 1. Инициализируешь VerificationTokenApi класс в бразуере, это позволит сохранить токен в браузере (localStorage)
- * 2. Ты делаешь ручки на своем сервере, чтобы зафетчить с браузера токен. Запрос browser -> localhost:5000/get-token -> VerificationTokenApi.
- * localhost:5000/get-token может вернуть токен либо в виде данных (в теле ответа, body), либо в заголовке cookie (set cookie)
- */

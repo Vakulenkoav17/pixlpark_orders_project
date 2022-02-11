@@ -1,4 +1,4 @@
-import React , {useCallback, useEffect, useMemo, useState} from "react";
+import React , {useCallback, useEffect, useState} from "react";
 import OrderList from "./components/OrderList"
 import axios from 'axios'
 
@@ -17,7 +17,7 @@ function App() {
     getOrders()
   })  
     
-  console.log(orders[0].Shipping)
+  console.log(orders)
     return (
     <div className="App">
       <OrderList orders = {orders}/>
