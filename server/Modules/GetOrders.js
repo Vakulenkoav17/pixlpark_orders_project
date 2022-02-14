@@ -1,17 +1,6 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+
 const axios = require("axios");
-
-const crypto = require("crypto");
-
-
-app.use(cors());
-app.options('*', cors());
-
-function sha1(data) {
-  return crypto.createHash("sha1").update(data, "binary").digest("hex");
-}
+const sha1 = require ("../Utils/crypto")
 
 class VerificationTokenApi {
   url = "http://api.pixlpark.com/";
@@ -47,7 +36,6 @@ class VerificationTokenApi {
         },
       });
 
-
       return response.data.AccessToken;
     } catch (error) {
       console.error(error.message);
@@ -59,52 +47,22 @@ class VerificationTokenApi {
     const hashedToken = this.getHashedToken(requestToken);
     const accessToken = await this.getAccessToken(requestToken, hashedToken);
 
-
     return accessToken;
   }
-  
+
   async getOrders(accessToken) {
     try {
       const response = await axios.get(this.url + "orders", {
         params: {
           oauth_token: accessToken,
-          take : 5
-        }
+          take: 10,
+        },
       });
-      
+
       return response.data.Result;
     } catch (error) {
       console.log(error.message);
     }
   }
-
 }
-
-app.get("/get-api-token", async function (req, res) {
-  const api = new VerificationTokenApi();
-  const token = await api.getToken();
-
-  if (!token) {
-    res.send({ error: "Some error" }).status(403);
-    return;
-  }
-
-  res.send(token);
-});
-
-app.get("/get-api-orders", async function (req, res) {
-  const api = new VerificationTokenApi();
-  const token = await api.getToken();
-  const orders = await api.getOrders(token);
-
-  if (!token) {
-    res.send({ error: "Some error" }).status(403);
-    return;
-  }
-
-  res.send(orders);
-});
-
-app.listen(5000, () => {
-  console.log(`server started on 5000`);
-});
+module.exports =  VerificationTokenApi 
