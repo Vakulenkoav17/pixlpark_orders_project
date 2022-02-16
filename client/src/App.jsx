@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import OrderList from "./components/OrderList";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import OrderList from './components/OrderList/OrderList.jsx';
 
 function App() {
-  const url = "http://localhost:5000/get-api-orders";
+  const url = 'http://localhost:5000/get-api-orders';
 
   const [orders, setOrders] = useState([]);
 
-  const getOrders = useCallback(() => {
+  const getOrders = () => {
     axios(url).then((res) => {
       setOrders(res.data);
     });
-  }, []);
-
+  };
   useEffect(() => {
     getOrders();
   }, []);

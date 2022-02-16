@@ -1,6 +1,5 @@
-
 const axios = require("axios");
-const sha1 = require ("../Utils/crypto")
+const sha1 = require("../utils/getSHAHash");
 
 class VerificationTokenApi {
   url = "http://api.pixlpark.com/";
@@ -38,7 +37,7 @@ class VerificationTokenApi {
 
       return response.data.AccessToken;
     } catch (error) {
-      console.error(error.message);
+      console.log(error.message);
     }
   }
 
@@ -65,4 +64,4 @@ class VerificationTokenApi {
     }
   }
 }
-module.exports =  VerificationTokenApi 
+module.exports = VerificationTokenApi;

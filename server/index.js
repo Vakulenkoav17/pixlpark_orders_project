@@ -1,19 +1,11 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
-const VerificationTokenApi = require("./Modules/GetOrders");
+const VerificationTokenApi = require("./modules/GetOrders");
 
-app.get("/get-api-token", async function (req, res) {
-  const api = new VerificationTokenApi();
-  const token = await api.getToken();
-
-  if (!token) {
-    res.send({ error: "Some error" }).status(403);
-    return;
-  }
-
-  res.send(token);
-});
+app.use(cors());
+app.options('*', cors());
 
 app.get("/get-api-orders", async function (req, res) {
   const api = new VerificationTokenApi();
@@ -21,7 +13,7 @@ app.get("/get-api-orders", async function (req, res) {
   const orders = await api.getOrders(token);
 
   if (!token) {
-    res.send({ error: "Some error" }).status(403);
+    res.send({ error: "Can't get orders" }).status(403);
     return;
   }
 
